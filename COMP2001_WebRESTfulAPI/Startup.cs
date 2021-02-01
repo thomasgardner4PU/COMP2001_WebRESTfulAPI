@@ -29,7 +29,7 @@ namespace COMP2001_WebRESTfulAPI
         {
             services.AddControllers();
 
-            services.AddDbContext<COMP2001_TGardnerContext>(options =>
+            services.AddDbContext<DataAccess>(options =>
 options.UseSqlServer(Configuration.GetConnectionString("COMP2001_TGardner")));
         }
 
