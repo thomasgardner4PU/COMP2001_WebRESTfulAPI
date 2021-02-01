@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Data;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Data.SqlClient;
-using System.Data;
 
 #nullable disable
 
 namespace COMP2001_WebRESTfulAPI.Models
 {
-    public partial class DataAccess : DbContext
+    public partial class COMP2001_TGardnerContext : DbContext
     {
-        public DataAccess()
+        public COMP2001_TGardnerContext()
         {
         }
 
-        public DataAccess(DbContextOptions<DataAccess> options)
+        public COMP2001_TGardnerContext(DbContextOptions<COMP2001_TGardnerContext> options)
             : base(options)
         {
         }
@@ -99,58 +95,6 @@ namespace COMP2001_WebRESTfulAPI.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
-        }
-
-        public bool ValidateUser(User user)
-        {
-            Database.ExecuteSqlRaw("EXEC Validate @Email, @Password",
-                new SqlParameter("@Email", user.Email),
-                new SqlParameter("@Password", user.CurrentPassword));
-            return true;
-        }
-        public void RegisterUser(User user, string OUTPUT)
-        public void RegisterUser(User user, out string OUTPUT)
-        {
-            SqlParameter response = new SqlParameter("@ResponseMessage", SqlDbType.VarChar, 128);
-            response.Direction = ParameterDirection.Output;
-            SqlCommand command = new SqlCommand();
-
-            SqlParameter parameter = new SqlParameter();
-            parameter.ParameterName = "@ResponceMessage";
-            parameter.IsNullable = true;
-            parameter.SqlDbType = System.Data.SqlDbType.VarChar;
-            parameter.Direction = System.Data.ParameterDirection.Output;
-            parameter.Size = 50;
-
-            command.Parameters.Add(parameter);
-
-            Database.ExecuteSqlRaw("EXEC RegisterUser @FirstName, @LastName, @Email, @CurrentPassword, @ResponceMessage",
-                 new SqlParameter("@FirstName", user.FirstName),
-                 new SqlParameter("@LastName", user.LastName),
-                 new SqlParameter("@Email", user.Email),
-                 new SqlParameter("@CurrentPassword", user.CurrentPassword.ToString()),
-                  response);
-                  parameter);
-
-            OUTPUT = parameter.Value.ToString();
-
-           
-        }
-
-        public void UpdateUser(User user, int User)
-        {
-            Database.ExecuteSqlRaw("EXEC UpdateUser @FirstName, @LastName, @Email, @Password, @UserID",
-                new SqlParameter("@FirstName", user.FirstName),
-                new SqlParameter("@LastName", user.LastName),
-                new SqlParameter("@Email", user.Email),
-                new SqlParameter("@Password", user.CurrentPassword),
-                new SqlParameter("@UserID", user.UserId));
-        }
-
-        public void DeleteUser(int User)
-        {
-            Database.ExecuteSqlRaw("EXEC DeleteUser @userID",
-                new SqlParameter("@UserID", User));
         }
 
 
