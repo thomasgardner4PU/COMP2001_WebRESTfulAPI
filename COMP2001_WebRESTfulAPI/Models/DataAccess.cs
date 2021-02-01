@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Data.SqlClient;
-using System.Data;
 
 #nullable disable
 
@@ -108,12 +105,8 @@ namespace COMP2001_WebRESTfulAPI.Models
                 new SqlParameter("@Password", user.CurrentPassword));
             return true;
         }
-        public void RegisterUser(User user, string OUTPUT)
         public void RegisterUser(User user, out string OUTPUT)
         {
-            SqlParameter response = new SqlParameter("@ResponseMessage", SqlDbType.VarChar, 128);
-            response.Direction = ParameterDirection.Output;
-            SqlCommand command = new SqlCommand();
 
             SqlParameter parameter = new SqlParameter();
             parameter.ParameterName = "@ResponceMessage";
@@ -122,19 +115,15 @@ namespace COMP2001_WebRESTfulAPI.Models
             parameter.Direction = System.Data.ParameterDirection.Output;
             parameter.Size = 50;
 
-            command.Parameters.Add(parameter);
-
             Database.ExecuteSqlRaw("EXEC RegisterUser @FirstName, @LastName, @Email, @CurrentPassword, @ResponceMessage",
                  new SqlParameter("@FirstName", user.FirstName),
                  new SqlParameter("@LastName", user.LastName),
                  new SqlParameter("@Email", user.Email),
                  new SqlParameter("@CurrentPassword", user.CurrentPassword.ToString()),
-                  response);
                   parameter);
 
             OUTPUT = parameter.Value.ToString();
 
-           
         }
 
         public void UpdateUser(User user, int User)
