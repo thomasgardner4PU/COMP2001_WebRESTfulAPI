@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static COMP2001_WebRESTfulAPI.Models.DataAccess;
 using COMP2001_WebRESTfulAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,8 +31,7 @@ namespace COMP2001_WebRESTfulAPI
             services.AddControllers();
 
             services.AddDbContext<DataAccess>(options =>
-            services.AddDbContext<DataAccess>(options =>
-options.UseSqlServer(Configuration.GetConnectionString("COMP2001_TGardner")));
+            options.UseSqlServer(Configuration.GetConnectionString("COMP2001_TGardner")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

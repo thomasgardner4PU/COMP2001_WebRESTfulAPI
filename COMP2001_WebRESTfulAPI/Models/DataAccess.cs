@@ -74,7 +74,7 @@ namespace COMP2001_WebRESTfulAPI.Models
             {
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.CurrentPassword)
+                entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(100)
                     .IsUnicode(false);
@@ -98,14 +98,14 @@ namespace COMP2001_WebRESTfulAPI.Models
             OnModelCreatingPartial(modelBuilder);
         }
 
-        public bool ValidateUser(User user)
+        public bool Validate(User user)
         {
-            Database.ExecuteSqlRaw("EXEC Validate @Email, @Password",
+            Database.ExecuteSqlRaw("EXEC ValidateUser @Email, @Password",
                 new SqlParameter("@Email", user.Email),
-                new SqlParameter("@Password", user.CurrentPassword));
+                new SqlParameter("@Password", user.Password));
             return true;
         }
-        public void RegisterUser(User user, out string OUTPUT)
+        public void Register(User user, out string OUTPUT)
         {
 
             SqlParameter parameter = new SqlParameter();
@@ -119,24 +119,24 @@ namespace COMP2001_WebRESTfulAPI.Models
                  new SqlParameter("@FirstName", user.FirstName),
                  new SqlParameter("@LastName", user.LastName),
                  new SqlParameter("@Email", user.Email),
-                 new SqlParameter("@CurrentPassword", user.CurrentPassword.ToString()),
+                 new SqlParameter("@CurrentPassword", user.Password.ToString()),
                   parameter);
 
             OUTPUT = parameter.Value.ToString();
 
         }
 
-        public void UpdateUser(User user, int User)
+        public void Update(User user, int User)
         {
             Database.ExecuteSqlRaw("EXEC UpdateUser @FirstName, @LastName, @Email, @Password, @UserID",
                 new SqlParameter("@FirstName", user.FirstName),
                 new SqlParameter("@LastName", user.LastName),
                 new SqlParameter("@Email", user.Email),
-                new SqlParameter("@Password", user.CurrentPassword),
+                new SqlParameter("@Password", user.Password),
                 new SqlParameter("@UserID", user.UserId));
         }
 
-        public void DeleteUser(int User)
+        public void Delete(int User)
         {
             Database.ExecuteSqlRaw("EXEC DeleteUser @userID",
                 new SqlParameter("@UserID", User));
