@@ -46,10 +46,19 @@ namespace COMP2001_WebRESTfulAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(User user, string output)
         {
-            _context.Register(user, out output);
+            string register = "";
 
+            _context.Register(user, out register);
+            int usertest = Int32.Parse(register);
 
-
+            if (usertest >= 1)
+            {
+                return StatusCode(200);
+            }
+            else
+            {
+                return StatusCode(404);
+            }
         }
 
         // DELETE: api/Users/5
