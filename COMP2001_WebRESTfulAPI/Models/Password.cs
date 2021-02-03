@@ -9,8 +9,9 @@ namespace COMP2001_WebRESTfulAPI.Models
     {
         public int PasswordId { get; set; }
         public string Pass { get; set; }
-        public DateTime LoginTime { get; set; }
+        public DateTime datechanged { get; set; }
 
         public virtual User PasswordNavigation { get; set; }
     }
 }
+

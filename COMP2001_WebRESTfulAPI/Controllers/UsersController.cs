@@ -9,10 +9,12 @@ using COMP2001_WebRESTfulAPI.Models;
 
 namespace COMP2001_WebRESTfulAPI.Controllers
 {
+        [ApiController]
     [Route("api/[controller]")]
-    [ApiController]
+
     public class UsersController : ControllerBase
     {
+
         private readonly DataAccess _context;
 
         public UsersController(DataAccess context)
@@ -21,10 +23,12 @@ namespace COMP2001_WebRESTfulAPI.Controllers
         }
 
         // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        [HttpGet("{id}")]
+    public async Task<IActionResult> Getuser(User user)
         {
-            return _context.Validate(User);
+            _context.Validate(user);
+
+            return StatusCode(200);
         }
 
         // PUT: api/Users/5
@@ -32,22 +36,28 @@ namespace COMP2001_WebRESTfulAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, User user)
         {
-            return _context.Update();
+            _context.Update(user, id);
+
+            return StatusCode(200);
         }
 
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<IActionResult> PostUser(User user)
+        public async Task<IActionResult> Post(User user, string output)
         {
-            return _context.Register(user);
+            _context.Register(user, out output);
+
+
+
         }
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            return _context.Delete(id);
+            _context.Delete(id);
+            return StatusCode(200);
         }
 
         public void register(User user, out string Register)

@@ -39,7 +39,7 @@ namespace COMP2001_WebRESTfulAPI.Models
             {
                 entity.HasNoKey();
 
-                entity.Property(e => e.LoginTime).HasColumnType("datetime");
+                entity.Property(e => e.datechanged).HasColumnType("datetime");
 
                 entity.Property(e => e.Pass)
                     .HasMaxLength(100)
