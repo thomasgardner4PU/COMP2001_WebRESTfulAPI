@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -100,10 +101,24 @@ namespace COMP2001_WebRESTfulAPI.Models
 
         public bool Validate(User user)
         {
-            Database.ExecuteSqlRaw("EXEC ValidateUser @Email, @Password",
+            SqlParameter parameter = new SqlParameter("@ReturnValue", SqlDbType.Int, 128);
+            parameter.ParameterName = "@Validated";
+            parameter.SqlDbType = System.Data.SqlDbType.Int;
+            parameter.Direction = System.Data.ParameterDirection.Output;
+
+            Database.ExecuteSqlRaw("EXEC ValidateUser @Email, @Password, @Validated",
+                parameter,
                 new SqlParameter("@Email", user.Email),
-                new SqlParameter("@Password", user.Password));
-            return true;
+                new SqlParameter("@Password", user.Password), parameter);
+
+            if (Convert.ToInt32(parameter.Value) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         public void Register(User user, out string OUTPUT)
         {
@@ -115,7 +130,7 @@ namespace COMP2001_WebRESTfulAPI.Models
             parameter.Direction = System.Data.ParameterDirection.Output;
             parameter.Size = 50;
 
-            Database.ExecuteSqlRaw("EXEC RegisterUser @FirstName, @LastName, @Email, @CurrentPassword, @ResponceMessage",
+            Database.ExecuteSqlRaw("EXEC RegisterUser @FirstName, @LastName, @Email, @CurrentPassword, @ResponceMessage OUTPUT",
                  new SqlParameter("@FirstName", user.FirstName),
                  new SqlParameter("@LastName", user.LastName),
                  new SqlParameter("@Email", user.Email),

@@ -9,8 +9,8 @@ using COMP2001_WebRESTfulAPI.Models;
 
 namespace COMP2001_WebRESTfulAPI.Controllers
 {
-        [ApiController]
-    [Route("api/[controller]")]
+    [ApiController]
+    [Route("api/user")]
 
     public class UsersController : ControllerBase
     {
@@ -24,11 +24,19 @@ namespace COMP2001_WebRESTfulAPI.Controllers
 
         // GET: api/Users
         [HttpGet("{id}")]
-    public async Task<IActionResult> Getuser(User user)
+        public async Task<IActionResult> Get(User user)
         {
-            _context.Validate(user);
 
-            return StatusCode(200);
+            bool p1 = getValidation(user);
+
+            if (p1)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return StatusCode(208);
+            }
         }
 
         // PUT: api/Users/5
@@ -44,20 +52,19 @@ namespace COMP2001_WebRESTfulAPI.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<IActionResult> Post(User user, string output)
+        public async Task<IActionResult> Post(User user)
         {
-            string register = "";
+            string Responce;
 
-            _context.Register(user, out register);
-            int usertest = Int32.Parse(register);
+            register(user, out Responce);
 
-            if (usertest >= 1)
+            if (Responce.Contains("200"))
             {
-                return StatusCode(200);
+                return Ok(user);
             }
             else
             {
-                return StatusCode(404);
+                return StatusCode(208);
             }
         }
 
@@ -69,9 +76,13 @@ namespace COMP2001_WebRESTfulAPI.Controllers
             return StatusCode(200);
         }
 
+        [NonAction]
         public void register(User user, out string Register)
         {
-            _context.Register(user, out Register);
+            string outputRegitser;
+            _context.Register(user, out outputRegitser);
+
+            Register = outputRegitser;
         }
 
         public bool getValidation(User user)
