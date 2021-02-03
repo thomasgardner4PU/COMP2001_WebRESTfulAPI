@@ -101,15 +101,13 @@ namespace COMP2001_WebRESTfulAPI.Models
 
         public bool Validate(User user)
         {
-            SqlParameter parameter = new SqlParameter("@ReturnValue", SqlDbType.Int, 128);
-            parameter.ParameterName = "@Validated";
-            parameter.SqlDbType = System.Data.SqlDbType.Int;
-            parameter.Direction = System.Data.ParameterDirection.Output;
+            SqlParameter parameter = new SqlParameter("ReturnValue", SqlDbType.Int, 128);
+            parameter.Direction = ParameterDirection.Output;
 
-            Database.ExecuteSqlRaw("EXEC ValidateUser @Email, @Password, @Validated",
+            Database.ExecuteSqlRaw("EXEC @ReturnValue = ValidateUser @Email, @Password",
                 parameter,
                 new SqlParameter("@Email", user.Email),
-                new SqlParameter("@Password", user.Password), parameter);
+                new SqlParameter("@Password", user.Password));
 
             if (Convert.ToInt32(parameter.Value) == 1)
             {
