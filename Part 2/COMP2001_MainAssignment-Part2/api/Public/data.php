@@ -12,14 +12,12 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css%22%3E">
-</head>
-
-<body>
-
 <style>
     .w3-table{
         margin-left: auto;
         margin-right: auto;
+        background-color: #474e5d; /* Dark Blue */
+        color: #ffffff;
     }
     body {
         font: 20px Montserrat, sans-serif;
@@ -71,6 +69,7 @@
         padding: 5px;
     }
 </style>
+</head>
 <div class="w3-table">
     <script>
         function arrayToTable(tableData) {
@@ -122,3 +121,4 @@
     </a>
 </div>
 </body>
+</html>

@@ -76,13 +76,19 @@
     </div>
 </nav>
 
-div class="container-fluid bg-2 text-center">
-<h3 class="margin">What is the project vision?</h3>
-<p> Using the PHP coding language, I have managed to display a csv file storing information about the Plymouth Nature Reserve location in Machine readable data as Json-LD and also in Human readable format as a chart.
-    Please use the search button to navigate back to top of page where you will see the provided link to the respective pages.</p>
-<a href="#" class="btn btn-default btn-lg">
-    <span class="glyphicon glyphicon-search"></span> Find Out More
-</a>
+<div class="container-fluid bg-2 text-center">
+    <h3 class="margin">More About the Project Vision</h3>
+    <p> This linked data application has been created in PHP, HTML, a CSS style sheet  along with bootstrap from W3schools.com to display the local nature reserves in and around Plymouth. This information was chosen
+    from the Data Place Plymouth website <a href="http://www.dataplymouth.co.uk/datasets">www.dataplymouth.co.uk</a> as a CSV file format and is displayed in the form of a simple table that can be read by humans. The same file
+    has also been used to be displayed as machine readable format using JavaScript and PHP functions.</p>
+    </a>
 </div>
 
+<footer class="container-fluid bg-4 text-center">
+    <p> Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
+    <p> 2021 School of Computing, Science and Mathematics</p>
+    <p> Bootstrap Theme Edited by Thomas Gardner </p>
+    <P> Currently Studying BSc (HONS) Studying Computing & Software Development Stage 2 </P>
+</footer>
 </body>
+</html>
