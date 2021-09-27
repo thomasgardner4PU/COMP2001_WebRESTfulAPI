@@ -32,72 +32,72 @@ namespace COMP2001_WebRESTfulAPI.Models
 //            }
 //        }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.HasAnnotation("Relational:Collation", "Latin1_General_CI_AS");
 
-            modelBuilder.Entity<Password>(entity =>
-            {
-                entity.HasNoKey();
+        //    modelBuilder.Entity<Password>(entity =>
+        //    {
+        //        entity.HasNoKey();
 
-                entity.Property(e => e.datechanged).HasColumnType("datetime");
+        //        entity.Property(e => e.datechanged).HasColumnType("datetime");
 
-                entity.Property(e => e.Pass)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("pass");
+        //        entity.Property(e => e.Pass)
+        //            .HasMaxLength(100)
+        //            .IsUnicode(false)
+        //            .HasColumnName("pass");
 
-                entity.Property(e => e.PasswordId).HasColumnName("PasswordID");
+        //        entity.Property(e => e.PasswordId).HasColumnName("PasswordID");
 
-                entity.HasOne(d => d.PasswordNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.PasswordId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk1_UserID");
-            });
+        //        entity.HasOne(d => d.PasswordNavigation)
+        //            .WithMany()
+        //            .HasForeignKey(d => d.PasswordId)
+        //            .OnDelete(DeleteBehavior.ClientSetNull)
+        //            .HasConstraintName("Fk1_UserID");
+        //    });
 
-            modelBuilder.Entity<Session>(entity =>
-            {
-                entity.HasNoKey();
+        //    modelBuilder.Entity<Session>(entity =>
+        //    {
+        //        entity.HasNoKey();
 
-                entity.Property(e => e.SessionId).HasColumnName("SessionID");
+        //        entity.Property(e => e.SessionId).HasColumnName("SessionID");
 
-                entity.Property(e => e.SessionTime).HasColumnType("datetime");
+        //        entity.Property(e => e.SessionTime).HasColumnType("datetime");
 
-                entity.HasOne(d => d.SessionNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.SessionId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk2_UserID");
-            });
+        //        entity.HasOne(d => d.SessionNavigation)
+        //            .WithMany()
+        //            .HasForeignKey(d => d.SessionId)
+        //            .OnDelete(DeleteBehavior.ClientSetNull)
+        //            .HasConstraintName("Fk2_UserID");
+        //    });
 
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+        //    modelBuilder.Entity<User>(entity =>
+        //    {
+        //        entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+        //        entity.Property(e => e.Password)
+        //            .IsRequired()
+        //            .HasMaxLength(100)
+        //            .IsUnicode(false);
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+        //        entity.Property(e => e.Email)
+        //            .IsRequired()
+        //            .HasMaxLength(50)
+        //            .IsUnicode(false);
 
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+        //        entity.Property(e => e.FirstName)
+        //            .IsRequired()
+        //            .HasMaxLength(50)
+        //            .IsUnicode(false);
 
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
+        //        entity.Property(e => e.LastName)
+        //            .IsRequired()
+        //            .HasMaxLength(50)
+        //            .IsUnicode(false);
+        //    });
 
-            OnModelCreatingPartial(modelBuilder);
-        }
+        //    OnModelCreatingPartial(modelBuilder);
+        //}
 
         public bool Validate(User user)
         {
